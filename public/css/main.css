@@ -1,0 +1,298 @@
+*{
+    margin : 0;
+    padding : 0;
+}
+ul, ol{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+input:focus, textarea:focus{
+    outline: none;
+}
+button{
+    border: none;
+}
+button:focus{
+    outline: none;
+}
+body{
+    font-family: monospace;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+.operations {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+.operation-header{
+    padding: 20px;
+    display: flex;
+    padding-bottom: 0;
+}
+.operation-header h3{
+    width: 250px;
+    text-align: center;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.operation-header > .operations{
+
+}
+.operation-header > .operations button{
+    padding: 10px 25px;
+    border-radius: 3px;
+}
+.main{
+    height: 60vh;
+}
+.main, .output{
+    display: flex;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+.side-nav-bar{
+    width: 250px;
+}
+.code{
+    display: flex;
+    flex: 1;
+}
+.code > textarea{
+    resize: none;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    border-radius: 3px;
+    border-left: 4px solid rgb(110, 110, 235);
+    color : blue;
+}
+
+.code > textarea:focus{
+    border-color: blue;
+    box-shadow: 0px 0px 5px 0px rgb(177, 177, 247);
+}
+.border{
+    border : 0.5px solid rgba(104, 70, 70, 0.5);
+}
+.code-output{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.code-output > label{
+    padding: 7px 10px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background: rgb(78, 78, 201);
+    font-weight: bold;
+    color: white;
+    width: 150px;
+    font-size: 17px;
+}
+#code-response{
+    
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-radius: 3px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    height: 60vh;
+    overflow-y: auto;
+}
+#run-code-btn{
+    background: rgb(70, 133, 7);
+    color: white;
+}
+
+#run-code-btn:hover{
+    background: rgb(78, 148, 8);
+}
+#raw-btn{
+    background: rgb(78, 78, 201);
+    color: white;
+}
+
+#raw-btn:hover{
+    background: rgb(95, 95, 212);
+}
+#pgm-lang{
+    background: crimson;
+    padding: 10px 25px;
+    font-weight: bold;
+    color: white;
+    border-radius: 3px;
+    position: relative;
+}
+#pgm-lang:hover > span{
+    display: block;
+}
+#pgm-lang span{
+    padding: 5px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    display: none; 
+    position: absolute;
+    right: 0;
+    bottom: -28px;
+    width: 160px;
+    text-align: center;
+    transition: 300ms;
+}
+.header{
+    height: 60px;
+    box-shadow: 0px -3px 8px 0px rgb(0 0 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background: white;
+    z-index: 5;
+}
+.header-cover{
+    height: 60px;
+}
+.header .logo{
+    
+    width: 250px;
+    text-align: center;
+    color: rgb(108, 108, 248);
+    font-size: 40px;
+}
+.side-nav-bar{
+    margin-right: 15px;
+    border-radius: 3px;
+    overflow-y: auto;
+    height: 100%;
+}
+.side-nav-bar > label{
+    padding: 7px 10px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.4);
+    display: flex;
+    flex: 1;
+    font-weight: bold;
+}
+
+.side-nav-bar > label:hover{
+    background: rgba(104, 70, 70, 0.1);
+    color: blueviolet;
+    cursor: pointer;
+}
+::-webkit-scrollbar {
+    width: 3px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(100, 93, 93, 0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+.overlay{
+    background: rgba(0, 0, 0,0.1);
+    position: absolute;
+    top : 60px;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+    position: fixed;
+}
+.overlay div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    height: 100%;
+}
+.overlay div i{
+    margin-right: 15px;
+}
+.explanation{
+    padding: 20px;
+}
+.code-exp label{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    padding: 7px 10px;
+    background: rgb(84, 136, 32);
+    color: white;
+}
+.pgm{
+
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: rgb(238, 238, 238);
+    margin-top: 7px;
+    padding: 10px;
+    font-weight: 500;
+}
+.comment{
+    color: rgb(85, 119, 51);
+    font-weight: 200;
+}
+#choose-lang{
+    background: rgb(89, 45, 131);
+    color: white;
+    position: relative;
+}
+.drop-down{
+    position: absolute;
+    right : 0;
+    top : 0;
+    border : 0.5px solid rgba(0, 0, 0,0.3);
+    background: white;
+    border-radius: 3px;
+    display: none;
+}
+.drop-down > div{
+    display: flex;
+    flex-direction: column;
+}
+.drop-down > div > label{
+    color: black;
+    width: 150px;
+    border-bottom: 0.5px solid rgba(0, 0, 0,0.2);
+}
+.drop-down > div > label > span{
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 7px 0px;
+}
+.drop-down > div > label > input:checked ~ span{
+    background: rgb(215, 215, 255);
+    width: 100%;
+    height: 100%;
+}
+.drop-down > div > label:last-child{
+    border: none;
+}
+
+.drop-down > div > label:hover{
+    background: rgb(233, 233, 250);
+    cursor: pointer;
+}
+
+.drop-down > div > label > input{
+    display: none;
+}
