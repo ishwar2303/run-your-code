@@ -1,7 +1,13 @@
+// Write your code here...
+
 #include <iostream>
+
 using namespace std;
+
 int main(){
-	int
-	cout << "WOW";
+
+	cout << "Hello World";
+	faf
 	return 0;
+
 }

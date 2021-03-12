@@ -23,19 +23,21 @@
         <div class="operation-header">
             <h3>Run your code in real time.</h3>
             <div class="operations">
-                <div>
-                    <button id="run-code-btn">Run</button>
-                    <a href="raw.txt" target="_blank"> 
+                <div id="operations-btn">
+                    <button id="run-code-btn" class="cp">Run</button>
+                    <button id="success-btn"><i class="fas fa-check"></i> Program Finished</button>
+                    <button id="error-btn"><i class="fas fa-exclamation-circle"></i> Error</button>
+                    <a id="raw-code-link"  class="cp" href="raw.txt" target="_blank"> 
                         <button id="raw-btn">Raw</button>
                     </a>
                 </div>
                 <div>
                     <button id="choose-lang">
-                        <div id="lang-name">PHP</div>
+                        <div id="lang-name">Language : PHP</div>
                         <div class="drop-down">
                             <div>
                                 <label>
-                                    <input class="pgm-lang-input" type="radio" name="pgm-lang" value="1" checked>
+                                    <input onclick="php_code()" class="pgm-lang-input" type="radio" name="pgm-lang" value="1" checked>
                                     <span class="select-lang">PHP</span>
                                 </label>
                                 <label>
@@ -107,14 +109,15 @@
     </div>
     <div class="overlay">
         <div>
-            <i class="fas fa-sync-alt fa-spin"></i> Running
+            <i class="fas fa-sync-alt fa-spin"></i> Running...
         </div>
     </div>
+    <div class="dropdown-overlay"></div>
 
     <!-- Code with explanation -->
     <div class="explanation">
         <div class="code-exp">
-            <label for="">Date and Time</label>
+            <label for="">Date and Time {PHP}</label>
             <div class="pgm border">
             date_default_timezone_set('Asia/Kolkata'); <span class="comment">// set timezone</span>
             <br/>
@@ -134,7 +137,7 @@
     
     <div class="explanation">
         <div class="code-exp">
-            <label for="">foreach loop</label>
+            <label for="">foreach loop {PHP}</label>
             <div class="pgm border">
                 $fruits = array('Apple', 'Mango', 'Banana', 'Orange', 'Pineapple', 'Grapes');
                 <br/>
@@ -171,8 +174,9 @@
         let pgmInputs = document.getElementsByClassName('pgm-lang-input')
         let dropDown = document.getElementsByClassName('drop-down')[0]
         let lang = ['PHP', 'C', 'C++', 'Python']
-        document.getElementById('choose-lang').addEventListener('click', () => {
-            dropDown.style.display = 'block'
+        document.getElementById('lang-name').addEventListener('click', () => {
+                    dropDown.style.display = 'block'
+                    $('.dropdown-overlay').toggle()
         })
         function chooseLanguage(){
             for(i=0; i<pgmInputs.length; i++){
@@ -183,28 +187,38 @@
                         php_code()
                     if(langName == 2)
                         c_code()
-                    document.getElementById('lang-name').innerHTML = lang[i]
-                    $('.drop-down').toggle()
+                    if(langName == 3)
+                        cpp_code()
+                    if(langName == 4)
+                        python_code()
+                    document.getElementById('lang-name').innerHTML = 'Language : '+lang[i]
+                    dropDown.style.display = 'none'
+                    $('.dropdown-overlay').toggle()
                     return
                 }
             }
         }
         $('.pgm-lang-input').click(() => {
             chooseLanguage()
-            $('.drop-down').toggle()
         })
     </script>
     
 
     <script>
         $('#run-code-btn').click(() => {
+            document.getElementById('error-btn').style.display = 'none'
+            document.getElementById('success-btn').style.display = 'none'
+            document.getElementById('raw-code-link').style.display = 'none'
             let userCode = $('#user-code').val()
             let pgmLangInputs = document.getElementsByName('pgm-lang')
             let langName = 1
+            let runBtn = document.getElementById('run-code-btn')
+            runBtn.disabled = true
+            runBtn.innerHTML = '<i class="fas fa-sync-alt fa-spin" style="margin-right:5px;" ></i> Running...'
             for(i=0; i<pgmLangInputs.length; i++){
                 if(pgmLangInputs[i].checked){
                     langName = pgmLangInputs[i].value
-                    break;
+                    break
                 }
             }
             console.log(langName)
@@ -213,10 +227,9 @@
                 langName
             }
             let url = 'run-user-code.php'
-            $('.overlay').toggle()
+            //$('.overlay').toggle()
             setTimeout(() => {
                 $('#code-response').load(url, reqObj)
-                $('.overlay').toggle()
             }, 1500);
         })
         var textareas = document.getElementsByTagName('textarea');
@@ -235,21 +248,42 @@
         function php_code(){
             let el = document.getElementById('user-code')
             el.innerHTML = '\<?php\n\n'
-            
-            el.innerHTML += '   echo "Hello World";\n'
-
+            el.innerHTML += '\t// Write your code here...\n\n'
+            el.innerHTML += '\techo "Hello World";\n'
             el.innerHTML += '\n?>'
         }
+        php_code()
         function c_code(){
             let el = document.getElementById('user-code')
-            el.innerHTML = '#include <stdio.h>\n\n'
-            
+            el.innerHTML = '// Write your code here...\n\n'
+            el.innerHTML += '#include <stdio.h>\n\n'
             el.innerHTML += 'int main(){\n\n'
-            el.innerHTML += '   printf("Hello World");\n\n'
-            el.innerHTML += '   return 0;\n'
+            el.innerHTML += '\tprintf("Hello World");\n\n'
+            el.innerHTML += '\treturn 0;\n'
             el.innerHTML += '\n}'
+        }
+        function cpp_code(){
+            let el = document.getElementById('user-code')
+            el.innerHTML = '// Write your code here...\n\n'
+            el.innerHTML += '#include <iostream>\n\n'
+            el.innerHTML += 'using namespace std;\n\n'
+            el.innerHTML += 'int main(){\n\n'
+            el.innerHTML += '\tcout << "Hello World";\n\n'
+            el.innerHTML += '\treturn 0;\n'
+            el.innerHTML += '\n}'
+        }
+        function python_code(){
+            let el = document.getElementById('user-code')
+            el.innerHTML = '# Write your code here...\n\n'
+            el.innerHTML += 'print("Hello World")\n\n'
         }
     </script>
     <script src="public/script/index.js"></script>
+    <script>
+        $('.dropdown-overlay').click(() => {
+            $('.dropdown-overlay').toggle()
+            $('.drop-down').toggle()
+        })
+    </script>
 </body>
 </html>

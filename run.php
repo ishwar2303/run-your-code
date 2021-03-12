@@ -1,4 +1,6 @@
 <?php 
 
-    echo exec('python simple.py', $output, $return);
+    echo exec('C:/xampp/php/php.exe php-code.php 2>&1', $output, $return);
+    //print_r($output);
+
 ?>

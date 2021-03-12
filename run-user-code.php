@@ -1,22 +1,32 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <?php 
-    //print_r($_POST);
+    
     if(isset($_POST['userCode']) && isset($_POST['langName'])){
         $userCode = $_POST['userCode'];
         $langName = $_POST['langName'];
         if($langName == 1){ // php code execution
             if($userCode != ''){
-                $userCode = "\n".$userCode."\n";
-                //echo str_replace("\n", "<br/>", $userCode);
-                $output_file = fopen('output-response.php', "w");
+                $userCode = $userCode."\n";
+                $output_file = fopen('php-code.php', "w");
                 fwrite($output_file, '');
                 fwrite($output_file, $userCode);
-                //fwrite($output_file, "unlink('output-response.php');");
                 $raw_file = fopen('raw.txt', "w");
                 fwrite($raw_file, $userCode);
+                exec('C:/xampp/php/php.exe php-code.php 2>&1', $output, $return);
+                if(!$return){
+                    foreach($output as $value){
+                        echo $value;
+                        echo "<br/>";
+                    }
+                }
+                else{
+                    foreach($output as $value){
+                        echo $value;
+                        echo "<br/>";
+                    }
+                }
                 ?>
-                <script>
-                    url_file = 'output-response.php'
+                <!-- <script>
+                    url_file = 'php-code.php'
                         $.ajax({
                             url : url_file,
                             type : 'POST',
@@ -28,10 +38,11 @@
                                 let el = document.getElementById('returned-output')
                                 console.log(output)
                                 if(output != '')
+                                    output = output.trim()
                                     el.innerHTML = output.replace(/(?:\r\n|\r|\n)/g, '<br/>')
                             }
                         })
-                </script>
+                </script> -->
                 <?php
             }
             else{
@@ -46,35 +57,54 @@
         else if($langName == 2){ // C code execution
             $output_file = fopen('c-code.c', "w");
             fwrite($output_file, $userCode);
-            exec('gcc c-code.c', $output, $return);
+            $raw_file = fopen('raw.txt', "w");
+            fwrite($raw_file, $userCode);
+            exec('gcc c-code.c  2>&1', $output, $return);
             if(!$return){
-                echo exec('a.exe');
+                exec('a.exe', $output, $return);
+                foreach($output as $value){
+                    echo $value;
+                    echo "<br/>";
+                }
                 echo "<br/><br/>Executed Successfully";
             }
             else{
-                echo "Error";
+                foreach($output as $value){
+                    echo $value;
+                    echo "<br/>";
+                }
             }
         }
         else if($langName == 3){ // C++ code execution
             $output_file = fopen('cpp-code.cpp', "w");
             fwrite($output_file, $userCode);
-            exec('g++ cpp-code.cpp', $output, $return);
+            $raw_file = fopen('raw.txt', "w");
+            fwrite($raw_file, $userCode);
+            exec('g++ cpp-code.cpp  2>&1', $output, $return);
             if(!$return){
-                echo exec('a.exe');
+                exec('a.exe', $output, $return);
+                foreach($output as $value){
+                    echo $value;
+                    echo "<br/>";
+                }
             }
             else{
-                echo "Error";
+                foreach($output as $value){
+                    echo $value;
+                    echo "<br/>";
+                }
             }
         }
-        else if($langName == 4){ // C++ code execution
+        else if($langName == 4){ // Python code execution
             $output_file = fopen('python-code.py', "w");
             fwrite($output_file, $userCode);
-            $pgm_output = exec('python python-code.py', $output, $return);
-            if(!$return){
-                echo $pgm_output;
-            }
-            else{
-                echo "Error";
+            $raw_file = fopen('raw.txt', "w");
+            fwrite($raw_file, $userCode);
+            $pgm_output = exec('python python-code.py 2>&1', $output, $return);
+            
+            foreach($output as $value){
+                echo $value;
+                echo "<br/>";
             }
         }
     }
@@ -83,3 +113,24 @@
 <div id="returned-output">
     
 </div>
+<script>
+        //$('.overlay').toggle()
+        runBtn = document.getElementById('run-code-btn')
+        runBtn.innerHTML = 'Run'
+        runBtn.disabled = false
+        document.getElementById('raw-code-link').style.display = 'block'
+        <?php 
+            if($return){
+                ?>
+                document.getElementById('error-btn').style.display = 'block'
+                document.getElementById('success-btn').style.display = 'none'
+                <?php
+            }
+            else{
+                ?>
+                document.getElementById('error-btn').style.display = 'none'
+                document.getElementById('success-btn').style.display = 'block'
+                <?php
+            }
+        ?>
+</script>
