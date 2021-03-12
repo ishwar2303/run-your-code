@@ -55,7 +55,7 @@ body{
     border-radius: 3px;
 }
 .main{
-    height: 60vh;
+    height: 450px;
 }
 .main, .output{
     display: flex;
@@ -69,6 +69,7 @@ body{
 .code{
     display: flex;
     flex: 1;
+    position: relative;
 }
 .code > textarea{
     resize: none;
@@ -77,7 +78,14 @@ body{
     padding: 15px;
     border-radius: 3px;
     border-left: 4px solid rgb(110, 110, 235);
-    color : blue;
+    color : blue; 
+    font-size: 14px;
+    padding-left: 5px;
+    padding-top: 21px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: transparent;
+    padding-bottom: 0px;
 }
 
 .code > textarea:focus{
@@ -96,13 +104,13 @@ body{
     padding: 7px 10px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    background: rgb(73, 69, 117);
+    background: #34495e;
     font-weight: bold;
     color: white;
     width: 150px;
     font-size: 17px;
 }
-#code-response{
+#code-response, #code-response-terminate{
     
     background: rgba(0,0,0,0.9);
     color: white;
@@ -317,7 +325,7 @@ body{
 }
 
 .drop-down > div > label:hover{
-    background: rgb(238, 219, 255);
+    background: rgb(173, 255, 214);
     cursor: pointer;
 }
 
@@ -364,6 +372,10 @@ body{
 #error-btn > i, #success-btn > i{
     margin-right: 5px;
 }
+#stop-btn{
+    background: rgb(205 205 205);
+    color: white;
+}
 #operations-btn{
     display: flex;
 }
@@ -375,4 +387,56 @@ body{
 }
 .cp{
     cursor: pointer;
+}
+.code{
+    display: flex;
+}
+#line-no{
+    padding-top: 5px;
+    background: #2c3e50;
+    color: white;
+    height: 467.5px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    pointer-events: none;
+    overflow-y: scroll;
+    /* padding-bottom: 10px; */
+}
+#line-no > div{
+    padding-bottom: 0px;
+    font-size: 17px;
+    height: 16px;
+    padding-right: 6px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+}
+#line-no > div:nth-child(odd){
+    background: #2c3e50;
+    color: #ffbf64;
+}
+#line-no > div:nth-child(even){
+    background: #34495e;
+    color: #d9c24f;
+}
+#program-line-bg{
+    height: 451.5px;
+    background: white;
+    position: absolute;
+    right: 0;
+    top : 0;
+    width: 100%;
+    z-index: -1;
+    overflow-y: scroll;
+    /* padding-bottom: 10px; */
+}
+#program-line-bg > div:nth-child(odd){
+    background: #f8f8f8;
+    width: 100%;
+    padding-top: 16px;
+}
+#program-line-bg > div:nth-child(even){
+    background: #f2f2f2;
+    width: 100%;
+    padding-top: 16px;
 }

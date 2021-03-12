@@ -1,5 +1,6 @@
 <?php 
-    
+    $error = "<span style='color:red;'>Error</span>";
+    $success = "<span style='color:#8ae234;'>Program Finished</span>";
     if(isset($_POST['userCode']) && isset($_POST['langName'])){
         $userCode = $_POST['userCode'];
         $langName = $_POST['langName'];
@@ -17,8 +18,10 @@
                         echo $value;
                         echo "<br/>";
                     }
+                    echo $success;
                 }
                 else{
+                    echo $error;
                     foreach($output as $value){
                         echo $value;
                         echo "<br/>";
@@ -66,9 +69,10 @@
                     echo $value;
                     echo "<br/>";
                 }
-                echo "<br/><br/>Executed Successfully";
+                echo $success;
             }
             else{
+                echo $error;
                 foreach($output as $value){
                     echo $value;
                     echo "<br/>";
@@ -87,8 +91,10 @@
                     echo $value;
                     echo "<br/>";
                 }
+                echo $success;
             }
             else{
+                echo $error;
                 foreach($output as $value){
                     echo $value;
                     echo "<br/>";
@@ -106,6 +112,9 @@
                 echo $value;
                 echo "<br/>";
             }
+            if(!$return)
+                echo $success;
+            else echo $error;
         }
     }
 
@@ -119,6 +128,9 @@
         runBtn.innerHTML = 'Run'
         runBtn.disabled = false
         document.getElementById('raw-code-link').style.display = 'block'
+        stopBtn = document.getElementById('stop-btn')
+        stopBtn.style.background = 'rgb(205 205 205)'
+        stopBtn.disabled = true
         <?php 
             if($return){
                 ?>

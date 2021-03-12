@@ -27,6 +27,7 @@
                     <button id="run-code-btn" class="cp">Run</button>
                     <button id="success-btn"><i class="fas fa-check"></i> Program Finished</button>
                     <button id="error-btn"><i class="fas fa-exclamation-circle"></i> Error</button>
+                    <button id="stop-btn" disabled>Stop</button>
                     <a id="raw-code-link"  class="cp" href="raw.txt" target="_blank"> 
                         <button id="raw-btn">Raw</button>
                     </a>
@@ -93,15 +94,18 @@
 
             </div>
             <div class="code">
-                <textarea  class="editable border" id="user-code" placeholder="Type your code here...">
-                </textarea>
+                <div id="line-no"></div> 
+                <textarea onkeyup="getLineNumber(this, document.getElementById('line-no'), document.getElementById('program-line-bg'));" onmouseup="this.onkeyup();" class="editable border" id="user-code" placeholder="Type your code here...">
+                 
+                </textarea>  
+                <div id="program-line-bg"></div>
             </div>
         </div>
 
         <div class="output">
             <div class="code-output">
                 <label>Program output : </label>
-                <div id="code-response">
+                <div id="code-response-terminate">
                     Hello World
                 </div>
             </div>
@@ -194,6 +198,7 @@
                     document.getElementById('lang-name').innerHTML = 'Language : '+lang[i]
                     dropDown.style.display = 'none'
                     $('.dropdown-overlay').toggle()
+                    getLineNumber(document.getElementById('user-code'), document.getElementById('line-no'), document.getElementById('program-line-bg'));
                     return
                 }
             }
@@ -205,10 +210,17 @@
     
 
     <script>
+        let programRequest;
         $('#run-code-btn').click(() => {
             document.getElementById('error-btn').style.display = 'none'
             document.getElementById('success-btn').style.display = 'none'
             document.getElementById('raw-code-link').style.display = 'none'
+            let programResponse = document.getElementById('code-response-terminate')
+            if(programResponse)
+                programResponse.id = 'code-response'
+            let stopBtn = document.getElementById('stop-btn')
+            stopBtn.style.background = 'rgb(189, 14, 14)'
+            stopBtn.disabled = false
             let userCode = $('#user-code').val()
             let pgmLangInputs = document.getElementsByName('pgm-lang')
             let langName = 1
@@ -229,8 +241,10 @@
             let url = 'run-user-code.php'
             //$('.overlay').toggle()
             setTimeout(() => {
-                $('#code-response').load(url, reqObj)
-            }, 1500);
+                $('#code-response').load(url, reqObj, (response, status, xhr) => {
+                    programRequest = xhr
+                })
+            }, 2000);
         })
         var textareas = document.getElementsByTagName('textarea');
         var count = textareas.length;
@@ -275,7 +289,7 @@
         function python_code(){
             let el = document.getElementById('user-code')
             el.innerHTML = '# Write your code here...\n\n'
-            el.innerHTML += 'print("Hello World")\n\n'
+            el.innerHTML += 'print("Hello World")'
         }
     </script>
     <script src="public/script/index.js"></script>
@@ -284,6 +298,61 @@
             $('.dropdown-overlay').toggle()
             $('.drop-down').toggle()
         })
+        $('#stop-btn').click(() => {
+            runBtn = document.getElementById('run-code-btn')
+            stopBtn = document.getElementById('stop-btn')
+            stopBtn.style.background = 'rgb(205 205 205)'
+            stopBtn.disabled = true
+            runBtn.disabled = false
+            runBtn.innerHTML = 'Run'
+            programResponse = document.getElementById('code-response')
+            if(programResponse)
+                programResponse.id = 'code-response-terminate'
+            document.getElementById('error-btn').style.display = 'none'
+            document.getElementById('success-btn').style.display = 'none'
+            document.getElementById('code-response-terminate').innerHTML = 'Program stopped'
+        })
     </script>
+    <script>
+
+            function getLineNumber(textarea, indicator, bgIndicator) {
+
+                let totalLines = textarea.value.substr(0, textarea.value.length).split("\n").length;
+                indicator.innerHTML = ''
+                let serialSpan 
+                serialSpan = document.createElement('div')
+                serialSpan.innerHTML = 'SNo.'
+                indicator.appendChild(serialSpan)
+                for(i=1; i<=totalLines; i++){
+                    serialSpan = document.createElement('div')
+                    serialSpan.innerHTML = i + '' + '<br/>'
+                    indicator.appendChild(serialSpan)
+                }
+                
+                bgIndicator.innerHTML = ''
+                lineSpan = document.createElement('div')
+                lineSpan.style.paddingTop = '21px'
+                bgIndicator.appendChild(lineSpan)
+                for(i=1; i<=totalLines; i++){
+                    lineSpan = document.createElement('div')
+                    bgIndicator.appendChild(lineSpan)
+                }
+            }
+            getLineNumber(document.getElementById('user-code'), document.getElementById('line-no'), document.getElementById('program-line-bg'));
+    </script>
+    
+    <script>
+        $('#user-code').scroll(() => {
+            var target1 = $("#line-no");
+            var target2 = $('#program-line-bg')
+            $("#user-code").scroll(function() {
+                target1.prop("scrollTop", this.scrollTop)
+                    .prop("scrollLeft", this.scrollLeft);
+                target2.prop("scrollTop", this.scrollTop)
+                    .prop("scrollLeft", this.scrollLeft);
+            });
+        })
+    </script>
+
 </body>
 </html>

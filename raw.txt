@@ -1,4 +1,13 @@
-# Write your code here...
+// Write your code here...
 
-print("Hello World")
+#include <iostream>
 
+using namespace std;
+
+int main(){
+
+	cout << "Hello World";
+ff
+	return 0;
+
+}
