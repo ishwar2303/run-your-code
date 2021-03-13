@@ -1,9 +1,11 @@
 <?php 
-
+    session_start();
     $output_file = fopen('output-response.php', "w");
     fwrite($output_file, '');
     $raw_file = fopen('raw.txt', "w");
     fwrite($raw_file, '');
+
+
 
 ?>
 <!DOCTYPE html>
@@ -24,7 +26,14 @@
             <h3>Run your code in real time.</h3>
             <div class="operations">
                 <div id="operations-btn">
-                    <button id="run-code-btn" class="cp">Run</button>
+                    <button id="run-code-btn" class="cp">Run
+                        <?php if(!isset($_SESSION['got_it_msg'])){ ?>
+                        <div class="arrow-outlined-box run-program-msg">
+                            <div class="outlined-arrow-up-left"></div>
+                            <div>Run your program</div>
+                        </div>
+                        <?php } ?>
+                    </button>
                     <button id="success-btn"><i class="fas fa-check"></i> Program Finished</button>
                     <button id="error-btn"><i class="fas fa-exclamation-circle"></i> Error</button>
                     <button id="stop-btn" disabled>Stop</button>
@@ -34,7 +43,14 @@
                 </div>
                 <div>
                     <button id="choose-lang">
-                        <div id="lang-name">Language : PHP</div>
+                        <div id="lang-name">Language : PHP
+                            <?php if(!isset($_SESSION['got_it_msg'])){ ?>
+                            <div class="arrow-outlined-box choose-language-msg">
+                                <div class="outlined-arrow-up-right"></div>
+                                <div>Choose Your Programming Language <br/><br/> PHP, C, C++, Python</div>
+                            </div>
+                            <?php } ?>
+                        </div>
                         <div class="drop-down">
                             <div>
                                 <label>
@@ -104,7 +120,14 @@
 
         <div class="output">
             <div class="code-output">
-                <label>Program output : </label>
+                <label>Program output :
+                    <?php if(!isset($_SESSION['got_it_msg'])){ ?>
+                    <div class="arrow-outlined-box program-output-msg">
+                        <div class="outlined-arrow-bottom-left2"></div>
+                        <div>Program Output<br/><br/>Run time data feeding not available</div>
+                    </div>
+                    <?php } ?>
+                </label>
                 <div id="code-response-terminate">
                     Hello World
                 </div>
@@ -355,6 +378,36 @@
             });
         })
     </script>
+    <?php if(!isset($_SESSION['got_it_msg'])){ ?>
+    <div class="got-it-popup">
+        <div>
+            <h3>Take a look!</h3>
+            <h4>Enjoy Coding...</h4>
+            <div>
+                <button id="got-it-btn" >Got it</button>
+            </div>
+        </div>
+    </div>
+    <div class="got-it-overlay"></div>
+    <script>
+        $('#got-it-btn').click(() => {
+            setTimeout(() => {
+            $('.run-program-msg').hide()
+            }, 500);
+            setTimeout(() => {
+            $('.program-output-msg').hide()
+            }, 1000);
+            setTimeout(() => {
+            $('.choose-language-msg').hide()
+            }, 1500);
+            $('.got-it-popup').hide()
+            $('.got-it-overlay').hide()
 
+        })
+    </script>
+    <?php 
+            $_SESSION['got_it_msg'] = true; 
+        } 
+    ?>
 </body>
 </html>
