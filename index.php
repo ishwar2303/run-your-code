@@ -225,6 +225,7 @@
             let pgmLangInputs = document.getElementsByName('pgm-lang')
             let langName = 1
             let runBtn = document.getElementById('run-code-btn')
+            runBtn.style.background = 'rgb(99 118 80)'
             runBtn.disabled = true
             runBtn.innerHTML = '<i class="fas fa-sync-alt fa-spin" style="margin-right:5px;" ></i> Running...'
             for(i=0; i<pgmLangInputs.length; i++){
@@ -305,6 +306,7 @@
             stopBtn.disabled = true
             runBtn.disabled = false
             runBtn.innerHTML = 'Run'
+            runBtn.style.background = 'rgb(70, 133, 7)'
             programResponse = document.getElementById('code-response')
             if(programResponse)
                 programResponse.id = 'code-response-terminate'

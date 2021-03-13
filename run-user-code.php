@@ -126,6 +126,7 @@
         //$('.overlay').toggle()
         runBtn = document.getElementById('run-code-btn')
         runBtn.innerHTML = 'Run'
+        runBtn.style.background = 'rgb(70, 133, 7)'
         runBtn.disabled = false
         document.getElementById('raw-code-link').style.display = 'block'
         stopBtn = document.getElementById('stop-btn')

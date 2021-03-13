@@ -1,10 +1,11 @@
-// Illustration of C program
+// Write your code here...
+
 #include <stdio.h>
 
 int main(){
-	
-	printf("%d", 3+5);
-	
+
+	printf("Hello World");
+
 	return 0;
-	
+fa
 }

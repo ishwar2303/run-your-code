@@ -42,7 +42,8 @@ body{
     margin-right: 15px;
     display: flex;
     align-items: center;
-    background: #ebebeb;
+    background: #223549;
+    color: white;
     justify-content: center;
     border-radius: 3px;
 }
@@ -73,24 +74,26 @@ body{
 }
 .code > textarea{
     resize: none;
-    height: 100%;
+    height: 451px;
     width: 100%;
     padding: 15px;
     border-radius: 3px;
-    border-left: 4px solid rgb(110, 110, 235);
+    /* border-left: 4px solid rgb(110, 110, 235); */
     color : blue; 
     font-size: 14px;
     padding-left: 5px;
-    padding-top: 21px;
+    padding-top: 19.5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     background: transparent;
     padding-bottom: 0px;
+    line-height: 16px;
+
 }
 
 .code > textarea:focus{
-    border-color: blue;
-    box-shadow: 0px 0px 5px 0px rgb(177, 177, 247);
+    border-color: rgb(36, 36, 53);
+    box-shadow: 0px 0px 5px 0px rgb(118, 118, 121);
 }
 .border{
     border : 0.5px solid rgba(104, 70, 70, 0.5);
@@ -103,8 +106,8 @@ body{
 .code-output > label{
     padding: 7px 10px;
     border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    background: #34495e;
+    border-top-right-radius: 3px; 
+    background: #223549;
     font-weight: bold;
     color: white;
     width: 150px;
@@ -129,9 +132,9 @@ body{
     color: white;
 }
 
-#run-code-btn:hover{
+/* #run-code-btn:hover{
     background: rgb(78, 148, 8);
-}
+} */
 #raw-btn{
     background: rgb(78, 78, 201);
     color: white;
@@ -420,7 +423,7 @@ body{
     color: #d9c24f;
 }
 #program-line-bg{
-    height: 451.5px;
+    height: 471.5px;
     background: white;
     position: absolute;
     right: 0;

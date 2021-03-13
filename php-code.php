@@ -1,10 +1,7 @@
-// Illustration of C program
-#include <stdio.h>
+<?php
 
-int main(){
-	
-	printf("%d", 3+5);
-	
-	return 0;
-	
-}
+	// Write your code here...
+
+	echo "Hello World";
+
+?>
