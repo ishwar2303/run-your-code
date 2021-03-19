@@ -12,7 +12,9 @@
                 fwrite($output_file, $userCode);
                 $raw_file = fopen('raw.txt', "w");
                 fwrite($raw_file, $userCode);
-                exec('C:/xampp/php/php.exe php-code.php 2>&1', $output, $return);
+                exec('cd compiler');
+                exec('cd php');
+                exec('php.exe php-code.php 2>&1', $output, $return);
                 if(!$return){
                     foreach($output as $value){
                         echo $value;
@@ -62,6 +64,8 @@
             fwrite($output_file, $userCode);
             $raw_file = fopen('raw.txt', "w");
             fwrite($raw_file, $userCode);
+            exec('cd compiler');
+            exec('cd c');
             exec('gcc c-code.c  2>&1', $output, $return);
             if(!$return){
                 exec('a.exe', $output, $return);
@@ -84,6 +88,8 @@
             fwrite($output_file, $userCode);
             $raw_file = fopen('raw.txt', "w");
             fwrite($raw_file, $userCode);
+            exec('cd compiler');
+            exec('cd cpp');
             exec('g++ cpp-code.cpp  2>&1', $output, $return);
             if(!$return){
                 exec('a.exe', $output, $return);
@@ -106,15 +112,19 @@
             fwrite($output_file, $userCode);
             $raw_file = fopen('raw.txt', "w");
             fwrite($raw_file, $userCode);
-            $pgm_output = exec('python python-code.py 2>&1', $output, $return);
+            exec('cd compiler');
+            exec('cd python');
+            exec('python.exe');
+            $pgm_output = exec('python-code.py 2>&1', $output, $return);
             
+            if(!$return)
+                echo $success;
+            else echo $error;
+
             foreach($output as $value){
                 echo $value;
                 echo "<br/>";
             }
-            if(!$return)
-                echo $success;
-            else echo $error;
         }
     }
 

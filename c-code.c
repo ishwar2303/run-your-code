@@ -1,4 +1,11 @@
-# Write your code here...
+// Write your code here...
 
-print("Hello World")fa
-fafja
+#include <stdio.h>
+
+int main(){
+
+	printf("Hello World");
+
+	return 0;
+
+}

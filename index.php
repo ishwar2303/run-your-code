@@ -206,23 +206,28 @@
                     $('.dropdown-overlay').toggle()
         })
         function chooseLanguage(){
+            let el = document.getElementById('user-code')
+            el.value = ''
             for(i=0; i<pgmInputs.length; i++){
                 if(pgmInputs[i].checked){
                     langName = pgmInputs[i].value
-                    console.log(langName)
-                    if(langName == 1)
+                    if(langName == '1')
                         php_code()
-                    if(langName == 2)
+                    if(langName == '2')
                         c_code()
-                    if(langName == 3)
+                    if(langName == '3')
                         cpp_code()
-                    if(langName == 4)
+                    if(langName == '4')
                         python_code()
                     document.getElementById('lang-name').innerHTML = 'Language : '+lang[i]
                     dropDown.style.display = 'none'
                     $('.dropdown-overlay').toggle()
                     getLineNumber(document.getElementById('user-code'), document.getElementById('line-no'), document.getElementById('program-line-bg'));
+                    console.log('in if')
                     return
+                }
+                else{
+                    console.log('in else')
                 }
             }
         }
@@ -285,35 +290,35 @@
 
         function php_code(){
             let el = document.getElementById('user-code')
-            el.innerHTML = '\<?php\n\n'
-            el.innerHTML += '\t// Write your code here...\n\n'
-            el.innerHTML += '\techo "Hello World";\n'
-            el.innerHTML += '\n?>'
+            el.value = '\<?php\n\n'
+            el.value += '\t// Write your code here...\n\n'
+            el.value += '\techo "Hello World";\n'
+            el.value += '\n?>'
         }
         php_code()
         function c_code(){
             let el = document.getElementById('user-code')
-            el.innerHTML = '// Write your code here...\n\n'
-            el.innerHTML += '#include <stdio.h>\n\n'
-            el.innerHTML += 'int main(){\n\n'
-            el.innerHTML += '\tprintf("Hello World");\n\n'
-            el.innerHTML += '\treturn 0;\n'
-            el.innerHTML += '\n}'
+            el.value = '// Write your code here...\n\n'
+            el.value += '#include <stdio.h>\n\n'
+            el.value += 'int main(){\n\n'
+            el.value += '\tprintf("Hello World");\n\n'
+            el.value += '\treturn 0;\n'
+            el.value += '\n}'
         }
         function cpp_code(){
             let el = document.getElementById('user-code')
-            el.innerHTML = '// Write your code here...\n\n'
-            el.innerHTML += '#include <iostream>\n\n'
-            el.innerHTML += 'using namespace std;\n\n'
-            el.innerHTML += 'int main(){\n\n'
-            el.innerHTML += '\tcout << "Hello World";\n\n'
-            el.innerHTML += '\treturn 0;\n'
-            el.innerHTML += '\n}'
+            el.value = '// Write your code here...\n\n'
+            el.value += '#include <iostream>\n\n'
+            el.value += 'using namespace std;\n\n'
+            el.value += 'int main(){\n\n'
+            el.value += '\tcout << "Hello World";\n\n'
+            el.value += '\treturn 0;\n'
+            el.value += '\n}'
         }
         function python_code(){
             let el = document.getElementById('user-code')
-            el.innerHTML = '# Write your code here...\n\n'
-            el.innerHTML += 'print("Hello World")'
+            el.value = '# Write your code here...\n\n'
+            el.value += 'print("Hello World")'
         }
     </script>
     <script src="public/script/index.js"></script>
